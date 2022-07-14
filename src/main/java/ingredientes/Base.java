@@ -22,7 +22,6 @@ public class Base implements Ingrediente,Comparable<Ingrediente>{
         return tipoBase == base.tipoBase;
     }
 
-
     //É necessário consertar o compareTo, para imprimir na ordem correta.
     @Override
     public int compareTo(Ingrediente ingrediente) {
@@ -43,4 +42,5 @@ public class Base implements Ingrediente,Comparable<Ingrediente>{
     public Enum obterTipo() {
         return this.tipoBase;
     }
+
 }

@@ -10,10 +10,27 @@ public class Shake {
     private Fruta fruta;
     private Topping topping;
     private List<Adicional> adicionais;
-    private TipoTamanho  tipoTamanho;
+    private TipoTamanho tipoTamanho;
 
     public Base getBase() {
         return base;
+    }
+
+    public Shake(Base base, Fruta fruta, Topping topping, List<Adicional> adicionais,
+                 TipoTamanho tipoTamanho) {
+        this.base = base;
+        this.fruta = fruta;
+        this.topping = topping;
+        this.adicionais = adicionais;
+        this.tipoTamanho = tipoTamanho;
+    }
+
+    public Shake(Base base, Fruta fruta, Topping topping, TipoTamanho tipoTamanho) {
+        this.base = base;
+        this.fruta = fruta;
+        this.topping = topping;
+        this.tipoTamanho = tipoTamanho;
+
     }
 
     public Fruta getFruta() {

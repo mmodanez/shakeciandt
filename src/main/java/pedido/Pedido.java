@@ -28,18 +28,19 @@ public class Pedido{
 
     public double calcularTotal(Cardapio cardapio){
         double total= 0;
-        //TODO
+        for (ItemPedido item : itens) {
+//           total += cardapio.buscarPreco();
+        }
         return total;
     }
 
     public void adicionarItemPedido(ItemPedido itemPedidoAdicionado){
-        //TODO
+        itens.add(itemPedidoAdicionado);
     }
 
     public boolean removeItemPedido(ItemPedido itemPedidoRemovido) {
-        //substitua o true por uma condição
-        if (true) {
-            //TODO
+        if (itens.contains(itemPedidoRemovido)) {
+            itens.remove(itemPedidoRemovido);
         } else {
             throw new IllegalArgumentException("Item nao existe no pedido.");
         }
