@@ -1,6 +1,9 @@
 package ingredientes;
 
-public class Fruta  implements Adicional,Comparable<Ingrediente>{
+import java.util.Collections;
+import java.util.Comparator;
+
+public class Fruta implements Adicional,Comparable<Ingrediente>{
      private TipoFruta tipoFruta;
 
      public Fruta(TipoFruta tipoFruta) {
@@ -10,7 +13,6 @@ public class Fruta  implements Adicional,Comparable<Ingrediente>{
      public TipoFruta getTipoFruta(){
           return this.tipoFruta;
      }
-
 
      //É necessário consertar o compareTo, para imprimir na ordem correta.
      @Override

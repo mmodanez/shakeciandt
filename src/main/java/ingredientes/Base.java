@@ -1,6 +1,9 @@
 package ingredientes;
 
-public class Base implements Ingrediente,Comparable<Ingrediente>{
+import java.util.Collection;
+import java.util.Collections;
+
+public class Base implements Ingrediente, Comparable<Ingrediente> {
 
     private TipoBase tipoBase;
 
@@ -8,7 +11,7 @@ public class Base implements Ingrediente,Comparable<Ingrediente>{
         this.tipoBase = tipoBase;
     }
 
-    public TipoBase getTipoBase(){
+    public TipoBase getTipoBase() {
         return this.tipoBase;
     }
 
