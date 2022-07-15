@@ -71,7 +71,7 @@ public class Pedido {
 
         if (itens.contains(itemPedidoRemovido)) {
             itemPedidoRemovido.setQuantidade(--quantidade);
-            if (quantidade < 0) {
+            if (quantidade == 0) {
                 itens.remove(itemPedidoRemovido);
             }
         } else {

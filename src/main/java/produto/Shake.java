@@ -3,6 +3,7 @@ package produto;
 import ingredientes.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Shake {
     private Base base;
@@ -20,7 +21,7 @@ public class Shake {
         this.base = base;
         this.fruta = fruta;
         this.topping = topping;
-        this.adicionais = adicionais;
+        this.adicionais = adicionais.stream().sorted().collect(Collectors.toList());
         this.tipoTamanho = tipoTamanho;
     }
 
