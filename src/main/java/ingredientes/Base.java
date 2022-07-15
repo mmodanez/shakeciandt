@@ -25,10 +25,9 @@ public class Base implements Ingrediente, Comparable<Ingrediente> {
         return tipoBase == base.tipoBase;
     }
 
-    //É necessário consertar o compareTo, para imprimir na ordem correta.
     @Override
     public int compareTo(Ingrediente ingrediente) {
-        return ingrediente.obterTipo().toString().compareToIgnoreCase(this.obterTipo().toString());
+        return this.obterTipo().toString().compareToIgnoreCase(ingrediente.obterTipo().toString());
     }
 
     @Override
