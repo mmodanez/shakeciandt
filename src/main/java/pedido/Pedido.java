@@ -1,8 +1,10 @@
 package pedido;
 
-import ingredientes.Ingrediente;
+import ingredientes.Adicional;
+import produto.Shake;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Pedido {
 
@@ -28,23 +30,35 @@ public class Pedido {
         return this.cliente;
     }
 
-    //Fix -> multiplicador de tamanho
+    //Refactor -> use a Map/Stream
     public double calcularTotal(Cardapio cardapio) {
         double total = 0;
         for (ItemPedido item : itens) {
-            double base = cardapio.buscarPreco(item.getShake().getBase());
-            double fruta = cardapio.buscarPreco(item.getShake().getFruta());
-            double topping = cardapio.buscarPreco(item.getShake().getTopping());
-            total += base + fruta + topping;
+            Shake shake = item.getShake();
+
+            double base = cardapio.buscarPreco(shake.getBase());
+            double tamanho = shake.getTipoTamanho().multiplicador;
+            double adicionais = 0;
+
+            if (shake.getAdicionais() != null) {
+                List<Adicional> listaAdicionais = shake.getAdicionais();
+                for (Adicional adicional : listaAdicionais) {
+                    adicionais += cardapio.buscarPreco(adicional);
+                }
+            }
+
+            double valor = (base * tamanho) + adicionais;
+            double quantidade = item.getQuantidade();
+            total += valor * quantidade;
         }
         return total;
     }
 
     public void adicionarItemPedido(ItemPedido itemPedidoAdicionado) {
 
-        for (ItemPedido item: itens) {
+        for (ItemPedido item : itens) {
             if (item.getShake().equals(itemPedidoAdicionado.getShake())) {
-                item.setQuantidade(item.getQuantidade()+itemPedidoAdicionado.getQuantidade());
+                item.setQuantidade(item.getQuantidade() + itemPedidoAdicionado.getQuantidade());
             } else {
                 itens.add(itemPedidoAdicionado);
                 break;
@@ -53,8 +67,13 @@ public class Pedido {
     }
 
     public boolean removeItemPedido(ItemPedido itemPedidoRemovido) {
+        int quantidade = itemPedidoRemovido.getQuantidade();
+
         if (itens.contains(itemPedidoRemovido)) {
-            itens.remove(itemPedidoRemovido);
+            itemPedidoRemovido.setQuantidade(--quantidade);
+            if (quantidade < 0) {
+                itens.remove(itemPedidoRemovido);
+            }
         } else {
             throw new IllegalArgumentException("Item nao existe no pedido.");
         }

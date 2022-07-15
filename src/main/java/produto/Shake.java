@@ -2,8 +2,7 @@ package produto;
 
 import ingredientes.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Shake {
     private Base base;

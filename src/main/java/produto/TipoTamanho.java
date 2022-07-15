@@ -1,24 +1,11 @@
 package produto;
 
 public enum TipoTamanho {
-    P, M, G;
+    P(1), M(1.3), G(1.5);
 
-//    public final double multiplicador() {
-//        double multi = 0;
-//        switch (TipoTamanho.values().toString()) {
-//            case "P":
-//                multi = 1;
-//                break;
-//            case "M":
-//                multi = 1.3;
-//                break;
-//            case "G":
-//                multi = 1.5;
-//                break;
-//        }
-//        return multi;
-//    }
+    public final double multiplicador;
 
-    ;
-
+    TipoTamanho(double multiplicador) {
+        this.multiplicador = multiplicador;
+    }
 }
