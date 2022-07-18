@@ -55,30 +55,36 @@ public class Pedido {
     }
 
     public void adicionarItemPedido(ItemPedido itemPedidoAdicionado) {
+        final var itemPedidoExistenteIndex = itens.indexOf(itemPedidoAdicionado);
 
-        for (ItemPedido item : itens) {
-            if (item.getShake().equals(itemPedidoAdicionado.getShake())) {
-                item.setQuantidade(item.getQuantidade() + itemPedidoAdicionado.getQuantidade());
-            } else {
-                itens.add(itemPedidoAdicionado);
-                break;
-            }
+        if (itemPedidoExistenteIndex == -1){
+            itens.add(itemPedidoAdicionado);
+        } else {
+            final var itemPedidoExistente = itens.get(itemPedidoExistenteIndex);
+            itemPedidoExistente.setQuantidade(itemPedidoExistente.getQuantidade() +
+                    itemPedidoAdicionado.getQuantidade());
         }
     }
 
     public boolean removeItemPedido(ItemPedido itemPedidoRemovido) {
-        int quantidade = itemPedidoRemovido.getQuantidade();
+        final var itemPedidoExistenteIndex = itens.indexOf(itemPedidoRemovido);
 
-        if (itens.contains(itemPedidoRemovido)) {
-            itemPedidoRemovido.setQuantidade(--quantidade);
+        if (itemPedidoExistenteIndex == -1){
+            throw new IllegalArgumentException("Item nao existe no pedido.");
+        } else {
+            final var itemPedidoExistente = itens.get(itemPedidoExistenteIndex);
+
+            int quantidade = itemPedidoExistente.getQuantidade();
+
+            if (itemPedidoExistente.getShake().equals(itemPedidoRemovido.getShake())) {
+                itemPedidoExistente.setQuantidade(--quantidade);
+            }
             if (quantidade == 0) {
                 itens.remove(itemPedidoRemovido);
             }
-        } else {
-            throw new IllegalArgumentException("Item nao existe no pedido.");
         }
         return false;
-    }
+}
 
     @Override
     public String toString() {
