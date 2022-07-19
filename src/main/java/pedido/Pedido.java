@@ -30,7 +30,6 @@ public class Pedido {
         return this.cliente;
     }
 
-    //Refactor -> use a Map/Stream
     public double calcularTotal(Cardapio cardapio) {
         double total = 0;
         for (ItemPedido item : itens) {
@@ -55,36 +54,38 @@ public class Pedido {
     }
 
     public void adicionarItemPedido(ItemPedido itemPedidoAdicionado) {
-        final var itemPedidoExistenteIndex = itens.indexOf(itemPedidoAdicionado);
+        final var itemPedidoExistenteIndex = itens.indexOf(itemPedidoAdicionado.getShake());
 
-        if (itemPedidoExistenteIndex == -1){
+        if (itemPedidoExistenteIndex == -1) {
             itens.add(itemPedidoAdicionado);
         } else {
             final var itemPedidoExistente = itens.get(itemPedidoExistenteIndex);
             itemPedidoExistente.setQuantidade(itemPedidoExistente.getQuantidade() +
                     itemPedidoAdicionado.getQuantidade());
+            itens.set(itemPedidoExistenteIndex, itemPedidoAdicionado);
         }
     }
 
     public boolean removeItemPedido(ItemPedido itemPedidoRemovido) {
         final var itemPedidoExistenteIndex = itens.indexOf(itemPedidoRemovido);
 
-        if (itemPedidoExistenteIndex == -1){
+        if (itemPedidoExistenteIndex == -1) {
             throw new IllegalArgumentException("Item nao existe no pedido.");
         } else {
             final var itemPedidoExistente = itens.get(itemPedidoExistenteIndex);
-
             int quantidade = itemPedidoExistente.getQuantidade();
+            final var shake = itemPedidoExistente.getShake();
 
-            if (itemPedidoExistente.getShake().equals(itemPedidoRemovido.getShake())) {
-                itemPedidoExistente.setQuantidade(--quantidade);
-            }
-            if (quantidade == 0) {
-                itens.remove(itemPedidoRemovido);
+            if (shake == itemPedidoRemovido.getShake()) {
+                if (quantidade > 1) {
+                    itemPedidoExistente.setQuantidade(--quantidade);
+                } else {
+                    itens.remove(itemPedidoRemovido);
+                }
             }
         }
         return false;
-}
+    }
 
     @Override
     public String toString() {
